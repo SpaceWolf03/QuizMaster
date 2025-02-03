@@ -12,12 +12,89 @@
     </header>
     <nav>
         <a href="/">Home</a>
-        <a href="/Admin">Admin</a>
+        <a href="/admin">Admin</a>
         <a href="/quiz">Quiz</a>
     </nav>
     <main>
-        <p>Make exciting quizzes and test other's knowledge!</p>
+        <p>Make exciting quizzes and test others' knowledge!</p>
+    
+        <form id="quizForm">
+            <p>Add a Subject:</p>
+            <input type="text" id="subject" name="subject" placeholder="Enter Subject" required>
+    
+            <p>Add a Chapter:</p>
+            <input type="text" id="chapter" name="chapter" placeholder="Enter Chapter" required>
+    
+            <button type="submit">Add Subject and Chapter</button>
+        </form>
+    
+        <div id="subjectInfo" style="display:none;">
+            <h3>Subject and Chapter Added:</h3>
+            <p id="subjectDisplay"></p>
+            <p id="chapterDisplay"></p>
+    
+            <div id="addQuestionSection">
+                <button id="addQuestionBtn" style="font-size: 24px; cursor: pointer;">&#43;</button>
+                <p>Add a Question</p>
+            </div>
+    
+            <form id="questionForm" style="display:none;">
+                <input type="text" id="question" name="question" placeholder="Enter a question" required>
+                <button type="submit">Add Question</button>
+            </form>
+    
+            <div id="questionsList">
+                <h4>Questions:</h4>
+                <ul id="questionsUl"></ul>
+            </div>
+        </div>
     </main>
+    
+    <script>
+        // Handling the form to add subject and chapter
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form submission
+    
+            const subject = document.getElementById('subject').value;
+            const chapter = document.getElementById('chapter').value;
+    
+            // Display the subject and chapter
+            document.getElementById('subjectDisplay').textContent = 'Subject: ' + subject;
+            document.getElementById('chapterDisplay').textContent = 'Chapter: ' + chapter;
+    
+            // Show the section for adding questions
+            document.getElementById('subjectInfo').style.display = 'block';
+    
+            // Optionally, clear the subject and chapter inputs
+            document.getElementById('subject').value = '';
+            document.getElementById('chapter').value = '';
+        });
+    
+        // Toggle the question input form when the "+" button is clicked
+        document.getElementById('addQuestionBtn').addEventListener('click', function() {
+            const questionForm = document.getElementById('questionForm');
+            questionForm.style.display = questionForm.style.display === 'none' || questionForm.style.display === '' ? 'block' : 'none';
+        });
+    
+        // Handling the form to add questions
+        document.getElementById('questionForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form submission
+    
+            const question = document.getElementById('question').value;
+    
+            // Create a list item for the new question
+            const li = document.createElement('li');
+            li.textContent = question;
+    
+            // Append the question to the list
+            document.getElementById('questionsUl').appendChild(li);
+    
+            // Optionally, clear the question input
+            document.getElementById('question').value = '';
+        });
+    </script>
+    
+    
     <footer>
         <p>&copy; 2025 Quiz Master</p>
     </footer>
